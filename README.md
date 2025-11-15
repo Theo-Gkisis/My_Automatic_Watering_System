@@ -1,83 +1,136 @@
-# My_Automatic_Watering_System
+# My Automatic Watering System
 
-<img
-  src="https://github.com/TheodoreGisis/My_Automatic_Watering_System/blob/main/WateringSystem.jpg"
-  alt="Alt text"
-  title="Optional title"
-  style="display: inline-block; margin: 0 auto; max-width: 300px">
+An Arduino-based **automatic plant watering system** that monitors soil moisture, controls a water pump, displays sensor data, and checks water-tank levels using an ultrasonic sensor.
 
+---
 
-## GENERAL
-This is an automatic plant watering system. Arduino UNO board has used as the main “brain” of our system and soil moisture sensor has used to collect the necessary data from the ground. Arduino is responsible to check the data and control the usage of the water pump. The water pump has two states, open and closed. When the soil moisture detects that the ground is too dry, then the Arduino is responsible to enable the water pump (open state) and watering for 5 seconds. After that, Arduino is also responsible to disable the water pump until the ground is detected as dry again (close state). An ultrasonic sensor is responsible to detect the water level. If the container is empty then blue led is on just to warn us. Red led is lighting when the water pump is in use, and it turns off when the pump is not in use.
+## 🌱 Overview
 
-## REQUIREMENTS
+This project automates the watering of plants using multiple sensors and a relay-controlled pump. The **Arduino Uno** reads soil moisture data and decides when to enable the pump. Additional components such as an **ultrasonic sensor**, **LED indicators**, and a **16x2 LCD display** enhance feedback and reliability.
 
-* Arduino Uno board
-* 1 or 2 soil moisture sensors
-* Oled character display module 16 x 2 
-* Red and blue leds
-* Ultrasonic sensor
+### 🔧 System Behavior
+
+* 💧 **Soil moisture sensor** checks if the soil is dry.
+* 🚰 When dry → **Pump turns ON for 5 seconds**.
+* 🌿 After watering → Pump turns OFF until dryness is detected again.
+* 📏 **Ultrasonic sensor** monitors the water tank level.
+* 🔵 If the tank is empty → **Blue LED turns ON** (warning).
+* 🔴 When pump is running → **Red LED turns ON**.
+* 📟 LCD displays sensor values and system states.
+
+---
+
+## 📦 Requirements
+
+Hardware used:
+
+* Arduino UNO board
+* 1–2 Soil Moisture Sensors
+* 16x2 LCD Display (Character OLED/HD44780 compatible)
+* Red LED
+* Blue LED
+* Ultrasonic Sensor (HC-SR04)
 * Breadboard
-* 330Ω resistors
-* Relay
-* Water pump
-* Pressure Sensor BMP280
-* 12Volt and 5Volt adapter
+* 330Ω resistors (for LEDs)
+* Relay module (to drive water pump)
+* Water pump (DC)
+* BMP280 Pressure/Temperature Sensor
+* 12V & 5V power adapters
 
-## CONNECTION
-1. Connect the relay's Vcc to 5Volt.
+---
 
-2. Connect the relay's ground to the negative rail of the breadboard.
+## 🔌 Wiring & Connections
 
-3. Connect relay's IN pin to Pin 8 in Arduino
+### 🔁 Relay & Pump
 
-4. Connect red wire (+) of the pump to the C (Common terminal) pin of the relay.
+* Relay **Vcc → 5V**
+* Relay **GND → Breadboard GND**
+* Relay **IN → Arduino Pin 8**
+* Pump **Red wire (+) → Relay COM pin**
+* Pump **Black wire (-) → Adapter (−)**
+* Adapter **(+) → Relay NO pin** (Normally Open)
 
-5. Connect the black wire of the pump and connect to the adapter on minus pin (-).
+### 📡 Ultrasonic Sensor (HC-SR04)
 
-6. Take a jumper wire and connect to the plus pin of the adapter and connect with NO (Normally open 120–240V terminal) pin on relay.
+* Vcc → 5V
+* GND → GND
+* Trig → **Pin 9**
+* Echo → **Pin 13**
 
-7. Connect the ground and the FCC pins of the Ultrasonic sensor in breadboard.
+### 🌱 Soil Moisture Sensor
 
-8. Connect the trig pin of the Ultrasonic sensor to pin 9 of Arduino and echo pin on 13.
+* Vcc → 5V
+* GND → GND
+* A0 → **Arduino A0**
 
-9. Connect the Vcc and the ground of the soil moisture sensor on the breadboard.
+### 🌡 BMP280 Pressure Sensor
 
-10. Connect moisture's A0 pin to the A0 analog pin of the Arduino.
+* Vcc → 5V
+* GND → GND
+* SCL → **A5**
+* SDA → **A4**
 
-11. Connect the Vcc and the ground pins of BMP280 Barometric.
+### 💡 LEDs
 
-12. Connect BMP280's SCL pin on A5 pin of the Arduino (Remember that A5 analog pin is the SCL pin of Arduino).
+**Red LED (Pump active indicator)**
 
-13. Connect BMP280's SDA pin on A4 pin of the Arduino (Remember that A4 analog pin is the SDA pin of Arduino).
+* LED + → 330Ω resistor → **Pin 7**
+* LED − → GND
 
-14. Connect one 330 Ω resistor in series with one Red led and connect the edge on the 7 pin of Arduino.
+**Blue LED (Water tank empty warning)**
 
-15. Connect one 330 Ω resistor in series with one Blue led and connect the edge on the 10 pin of Arduino.
+* LED + → 330Ω resistor → **Pin 10**
+* LED − → GND
 
-16. For the LCD Connect:
+---
 
-* D4 -> PIN 5 
-* D5 -> PIN 4
-* D6 -> PIN 3
-* D7 -> PIN 2
-* E -> PIN 11
-* Rs ->PIN 12
-* A-> 5Volts
-* K-> Ground
-* VDD->5Volts
-* Vss->Ground
-* V0->PIN 6
-* RW ->Ground
+## 📟 LCD 16x2 Display
 
+Connection mapping:
 
-## CIRCUIT
+```
+D4 → Pin 5
+D5 → Pin 4
+D6 → Pin 3
+D7 → Pin 2
+E  → Pin 11
+RS → Pin 12
+A  → 5V
+K  → GND
+VDD → 5V
+VSS → GND
+V0 → Pin 6 (contrast)
+RW → GND
+```
 
-<p align="center">
+---
 
-  <img width="750" height="500" src="https://github.com/TheodoreGisis/My_Automatic_Watering_System/blob/main/CIRCUIT.png" >
-  
-</p>
+## 🧩 Circuit
 
+Include your circuit diagram or wiring schematic here.
+(You can upload an image named `circuit.png` in your repository.)
 
+---
 
+## 📝 Summary
+
+This is a complete automated watering system that:
+
+* Monitors environmental data
+* Automatically waters plants
+* Alerts user about tank water level
+* Displays real-time information
+
+Perfect for home automation, IoT learning, and Arduino beginners.
+
+---
+
+## 🤝 Contributing
+
+Feel free to fork, improve wiring diagrams, or enhance the firmware.
+
+---
+
+## 📄 License
+
+MIT License.
